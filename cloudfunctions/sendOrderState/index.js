@@ -33,7 +33,7 @@ exports.main = async (event, context) => {
           "value": startTime
         }
       },
-      "templateId": 'JoS7GlcVBEug3m2s7Gv2hjbUn8WHyX9CNKt5zBy82_Q',
+      "templateId": '',
       "miniprogramState": 'trial'
     })
 
