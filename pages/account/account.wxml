@@ -1,0 +1,101 @@
+<view>
+  <view wx:if="{{!isLogin}}" class="login-page-light">
+    <!-- 品牌 -->
+    <image src="/images/logo.png" style="width: 144px; height: 144px; border-radius: 50%;" bind:longpress="ToPartnerPage"></image>
+    <view class="login-title-light">
+      <text class="title-main-light">xiaodi电竞</text>
+      <text class="title-sub-light">· 登录器</text>
+    </view>
+
+    <!-- 初始登录按钮（未展开表单时） -->
+    <button type="primary" bind:tap="openSwitch" wx:if="{{status == -1}}">
+      Let's go!
+    </button>
+
+    <!-- 表单区域（展开后） -->
+    <view wx:if="{{status != -1}}" class="form-container-light">
+      <view class="form-area-light">
+
+        <!-- 手机号 -->
+        <view class="input-group-light">
+          <text class="input-icon-light">📱</text>
+          <text class="input-label-light">手机号:</text>
+          <button class="phone-mock-input {{ phoneNumber ? 'has-value' : '' }}" open-type="getPhoneNumber" bindgetphonenumber="onInputPhoneNumber">
+            {{ phoneNumber || '获取手机号' }}
+          </button>
+        </view>
+
+        <!-- 密码输入框 -->
+        <view class="input-group-light">
+          <text class="input-icon-light">🔒</text>
+          <text class="input-label-light">密码:</text>
+          <input class="input-box-light" type="text" password="true" placeholder="请输入密码" bindinput="onInputPwd" />
+        </view>
+
+        <!-- 用户名输入框 -->
+        <view class="input-group-light" wx:if="{{status == 1}}">
+          <text class="input-icon-light">👤</text>
+          <text class="input-label-light">昵称:</text>
+          <input class="input-box-light" type="nickname" placeholder="起个响亮的名字" bindinput="onInputUser" />
+        </view>
+
+        <!-- 登录/注册按钮 -->
+        <button type="primary" bind:tap="Login" wx:if="{{status == 0}}">
+          登录
+        </button>
+        <view wx:if="{{status == 0}}" bind:tap="changeStatus" style="font-size: small; position:absolute; left: 0px; bottom: 0px; width: 100%; text-align: center; color: gray;" data-status="1">注册</view>
+        <button type="primary" bind:tap="Register" wx:if="{{status == 1}}">
+          注册
+        </button>
+        <view wx:if="{{status == 1}}" bind:tap="changeStatus" style="font-size: small; position: absolute; left: 0px; bottom: 0px; width: 100%; text-align: center; color: gray;" data-status="0">登录</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="page" wx:if="{{isLogin}}">
+    <view class="user-card">
+      <image class="avatar" src="/images/logo.png" mode="aspectFill"></image>
+      <view class="user-info">
+        <text class="username">{{username}}</text>
+        <text class="user-id" user-select>ID: {{userInfo._id}}</text>
+      </view>
+      <view class="consumption">
+        <text class="consumption-num">¥ {{userInfo.consumption}}</text>
+        <text class="consumption-label">累计消费</text>
+      </view>
+    </view>
+
+    <view class="phone-row">
+      <text class="phone-label">手机号</text>
+      <text class="phone-value">{{userInfo.phoneNumber}}</text>
+    </view>
+
+    <!-- 功能入口行 -->
+    <view class="menu-row">
+      <view class="menu-item" bind:tap="goToOrders" data-type="orders">
+        <image class="menu-icon" src="/images/order.png"></image>
+        <text class="menu-text">我的订单</text>
+      </view>
+
+      <view class="divider-vertical"></view>
+
+      <view class="menu-item" bind:tap="goToOrders" data-type="pendings">
+        <image class="menu-icon" src="/images/pending.png"></image>
+        <text class="menu-text">待确认订单</text>
+        <text class="badge" wx:if="{{pendingCount > 0}}">{{pendingCount}}</text>
+      </view>
+
+      <view class="divider-vertical"></view>
+
+      <button class="menu-item kefu-item" open-type="contact">
+        <image class="menu-icon" src="/images/kefu.png"></image>
+        <text class="menu-text">客服</text>
+      </button>
+    </view>
+
+    <view class="btn-group">
+      <button type="primary" bind:tap="Logout">退出登录</button>
+      <button type="warn" wx:if="{{userInfo.isAdmin}}" bind:tap="ToManage">后台入口</button>
+    </view>
+  </view>
+</view>

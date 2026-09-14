@@ -1,0 +1,468 @@
+/* pages/goodDetail/detail.wxss */
+.detail-container {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+  padding-bottom: 20rpx;
+}
+
+/* 轮播图 */
+.swiper {
+  width: 100%;
+  height: 500rpx;
+}
+.swiper-img {
+  width: 100%;
+  height: 100%;
+}
+
+/* 价格区 */
+.price-section {
+  background-color: #fff;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+}
+.price-main {
+  display: flex;
+  align-items: baseline;
+}
+.price-symbol {
+  color: #ff4d4f;
+  font-size: 28rpx;
+  font-weight: bold;
+}
+.price-num {
+  color: #ff4d4f;
+  font-size: 48rpx;
+  font-weight: bold;
+  margin-left: 8rpx;
+}
+.price-unit {
+  color: #666;
+  font-size: 26rpx;
+  margin-left: 8rpx;
+}
+.price-sub {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16rpx;
+}
+.sales {
+  color: #666;
+  font-size: 24rpx;
+}
+
+/* 服务详情区 */
+.desc-section {
+  background-color: #fff;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+}
+.section-title {
+  color: #212529;
+  font-size: 32rpx;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+  position: relative;
+  padding-left: 20rpx;
+}
+.section-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6rpx;
+  height: 28rpx;
+  background-color: #00c853;
+  border-radius: 3rpx;
+}
+.desc-text {
+  color: #495057;
+  font-size: 28rpx;
+  line-height: 1.6;
+}
+.notice {
+  margin-top: 30rpx;
+  padding: 20rpx;
+  background-color: #f8f9fa;
+  border-radius: 12rpx;
+}
+.notice-title {
+  color: #212529;
+  font-size: 26rpx;
+  font-weight: bold;
+  margin-bottom: 12rpx;
+  display: block;
+}
+.notice-item {
+  color: #666;
+  font-size: 24rpx;
+  line-height: 1.8;
+  display: block;
+}
+
+/* 底部操作栏 */
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 20rpx 30rpx;
+  box-shadow: 0 -4rpx 16rpx rgba(0,0,0,0.08);
+  border-top: 1rpx solid #eee;
+  box-sizing: border-box;
+}
+
+.kefu-btn {
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+  line-height: normal;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.kefu-icon {
+  width: 48rpx;
+  height: 48rpx;
+  margin-bottom: 4rpx;
+}
+
+.kefu-text {
+  color: #666;
+  font-size: 22rpx;
+  line-height: 1;
+}
+
+.order-btn {
+  background: linear-gradient(135deg, #00e676, #00c853);
+  color: #fff;
+  font-size: 30rpx;
+  font-weight: bold;
+  padding: 24rpx 0;
+  width: 480rpx;
+  text-align: center;
+  border-radius: 40rpx;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* 右侧操作区容器 */
+.action-area {
+  width: 480rpx;
+  flex-shrink: 0;
+}
+
+/* ===== 数量加减器 ===== */
+.stepper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80rpx;
+  background-color: #f5f5f5;
+  border-radius: 40rpx;
+  padding: 0 24rpx;
+  box-sizing: border-box;
+}
+
+.step-btn {
+  width: 52rpx;
+  height: 52rpx;
+  border-radius: 50%;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34rpx;
+  color: #333;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.step-btn.disabled {
+  color: #ccc;
+}
+
+.step-num {
+  flex: 1;
+  text-align: center;
+  font-size: 30rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+/* ===== 陪玩列表 ===== */
+.partner-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+  margin-top: 20rpx;
+}
+
+.partner-item {
+  display: flex;
+  align-items: center;
+}
+
+.partner-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  background-color: #f8f9fa;
+  flex-shrink: 0;
+}
+
+.partner-info {
+  flex: 1;
+  margin-left: 20rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.partner-name {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #212529;
+  margin-bottom: 6rpx;
+}
+
+.partner-desc {
+  font-size: 24rpx;
+  color: #666;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+/* 标签容器：让状态点和性别徽章水平排列 */
+.info-tags {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  margin-left: 12rpx; /* 与昵称保持间距 */
+}
+
+/* 在线状态圆点 */
+.online-dot {
+  width: 14rpx;
+  height: 14rpx;
+  border-radius: 50%;
+  flex-shrink: 0; /* 防止被压缩 */
+}
+
+/* 在线状态 - 绿色 */
+.online-dot.online {
+  background-color: #00cc66;
+  box-shadow: 0 0 6rpx rgba(0, 204, 102, 0.5);
+}
+
+/* 离线状态 - 灰色 */
+.online-dot.offline {
+  background-color: #cccccc;
+}
+
+/* 性别徽章容器 */
+.gender-badge {
+  width: 32rpx;
+  height: 32rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* 男性徽章 - 蓝色 */
+.gender-badge.male {
+  background-color: #d0eaff;
+  color: #007aff;
+}
+
+/* 女性徽章 - 粉色 */
+.gender-badge.female {
+  background-color: #ffe0eb;
+  color: #ff69b4;
+}
+
+/* 性别徽章内的符号 */
+.gender-badge text {
+  font-size: 22rpx;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.name-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap; /* 防止昵称过长时溢出 */
+}
+
+.comment-section {
+  background-color: #ffffff;
+  margin-top: 20rpx;
+  padding: 30rpx;
+  border-radius: 16rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.02);
+}
+
+/* 标题栏：带有绿色左边框 */
+.section-title {
+  position: relative;
+  padding-left: 20rpx;
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 30rpx;
+}
+
+.section-title::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8rpx;
+  height: 28rpx;
+  background-color: #07c160;
+  border-radius: 4rpx;
+}
+
+/* 评论项 */
+.comment-item {
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+
+/* 头部：勋章 + 昵称/时间 */
+.comment-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12rpx;
+}
+
+/* ========== 消费额勋章 ========== */
+.spent-badge {
+  position: relative;
+  width: 110rpx;
+  height: 46rpx;
+  border-radius: 23rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+  
+  /* 外层发光阴影 */
+  box-shadow: 
+    0 4rpx 12rpx rgba(0, 0, 0, 0.15),
+    inset 0 1rpx 0 rgba(255, 255, 255, 0.3);
+
+  /* 溢出隐藏，让伪元素的光泽不超出圆角 */
+  overflow: hidden;
+
+  /* 增加一个非常微弱的呼吸动画 */
+  animation: badgeGlow 3s ease-in-out infinite alternate;
+}
+
+/* 伪元素：斜向光泽扫过效果 */
+.spent-badge::after {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: -100%;
+  width: 400%;
+  height: 400%;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.4) 43%,
+    rgba(255, 255, 255, 0.5) 48%,
+    transparent 58%
+  );
+  transform: rotate(25deg);
+  pointer-events: none;
+  animation: shineMove 4s infinite linear;
+}
+
+/* 文字样式微调 */
+.spent-text {
+  position: relative;  /* 确保文字在伪元素之上 */
+  z-index: 1;
+  font-size: 24rpx;
+  font-weight: bold;
+  color: #ffffff;
+  line-height: 1;
+  text-shadow: 0 1rpx 2rpx rgba(0, 0, 0, 0.3);
+}
+
+/* 动画 */
+/* 光泽移动 */
+@keyframes shineMove {
+  0% {
+    transform: rotate(25deg) translateX(-60%) translateY(-60%);
+  }
+  100% {
+    transform: rotate(25deg) translateX(60%) translateY(60%);
+  }
+}
+
+/* 呼吸发光效果 */
+@keyframes badgeGlow {
+  0% {
+    box-shadow: 
+      0 4rpx 12rpx rgba(0, 0, 0, 0.15),
+      inset 0 1rpx 0 rgba(255, 255, 255, 0.3);
+  }
+  100% {
+    box-shadow: 
+      0 6rpx 20rpx rgba(0, 0, 0, 0.25),
+      inset 0 1rpx 0 rgba(255, 255, 255, 0.4);
+  }
+}
+
+/* 右侧用户信息（上下排列） */
+.user-meta {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0; /* 防止昵称过长撑开 */
+}
+
+.comment-nickname {
+  font-size: 27rpx;
+  color: #333;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.comment-time {
+  font-size: 22rpx;
+  color: #999;
+  margin-top: 4rpx;
+}
+
+/* 评论内容 */
+.comment-content {
+  font-size: 26rpx;
+  color: #555;
+  line-height: 1.6;
+  padding-left: 112rpx; /* 勋章宽96 + 间距16 */
+}
+
+/* 空状态 */
+.empty-tip {
+  text-align: center;
+  padding: 30rpx 0;
+  font-size: 26rpx;
+  color: #bbb;
+}

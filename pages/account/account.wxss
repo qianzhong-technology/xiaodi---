@@ -1,0 +1,304 @@
+/* pages/account/account */
+.login-page-light {
+  background-color: #ffffff;
+  padding: 80rpx 40rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 品牌标题 */
+.login-title-light {
+  margin-bottom: 80rpx;
+  text-align: center;
+}
+.title-main-light {
+  font-size: 48rpx;
+  font-weight: 800;
+  color: #00c853; /* 亮色系品牌绿，比暗色系更清新 */
+  letter-spacing: 4rpx;
+}
+.title-sub-light {
+  font-size: 32rpx;
+  color: #495057; /* 深灰文字，对比清晰不刺眼 */
+  margin-left: 12rpx;
+}
+
+/* 表单容器（展开后） */
+.form-container-light {
+  position: relative;
+  width: 100%;
+  max-width: 700rpx;
+  background-color: #ffffff; /* 纯白表单背景 */
+  border-radius: 24rpx;
+  padding: 50rpx 40rpx;
+  box-sizing: border-box;
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.06); /* 浅阴影，亮色系更柔和 */
+  border: 1rpx solid #e9ecef; /* 浅灰边框，区分边界 */
+  animation: fadeIn 0.3s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20rpx); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 表单区域 */
+.form-area-light {
+  display: flex;
+  flex-direction: column;
+  gap: 40rpx;
+}
+
+/* 输入框组 */
+.input-group-light {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+/* 输入框图标 */
+.input-icon-light {
+  font-size: 36rpx;
+  width: 40rpx;
+  text-align: center;
+  color: #6c757d; /* 中灰图标，不抢眼 */
+}
+
+/* 输入框标签 */
+.input-label-light {
+  color: #495057;
+  font-size: 28rpx;
+  width: 120rpx;
+  text-align: right;
+}
+
+/* 输入框 */
+.input-box-light {
+  flex: 1;
+  height: 88rpx;
+  background-color: #ffffff;
+  border: 2rpx solid #dee2e6; /* 浅灰边框 */
+  border-radius: 12rpx;
+  padding: 0 24rpx;
+  font-size: 28rpx;
+  color: #212529; /* 深灰输入文字，清晰易读 */
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+.input-box-light::placeholder {
+  color: #adb5bd; /* 浅灰占位符 */
+}
+/* 聚焦效果（和亮色系筛选组件统一） */
+.input-box-light:focus {
+  border-color: #00c853;
+  box-shadow: 0 0 16rpx rgba(0, 200, 83, 0.15); /* 浅绿阴影，不刺眼 */
+  outline: none;
+}
+
+/* 伪装成输入框的手机号获取按钮 */
+.phone-mock-input {
+  flex: 1;
+  height: 88rpx;
+  line-height: 80rpx;               /* 88rpx - 上下边框4rpx - 内边距4rpx */
+  background-color: #ffffff;
+  border: 2rpx solid #dee2e6;
+  border-radius: 12rpx;
+  padding: 0 22rpx;                 /* 与 input 的 padding 一致 */
+  font-size: 28rpx;
+  color: #808080;                   /* 浅灰占位符颜色 */
+  font-weight: normal;
+  text-align: left;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+
+  /* 重置 button 默认样式 */
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+  cursor: pointer;
+  margin: 0;
+  font-family: inherit;
+  background-image: none;
+  box-shadow: none;
+  border-image: none;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* 点击时的反馈 */
+.phone-mock-input:active {
+  border-color: #00c853;
+  box-shadow: 0 0 16rpx rgba(0, 200, 83, 0.15);
+}
+
+.phone-mock-input.has-value {
+  color: #212529;                   /* 深色输入文字 */
+}
+
+/* 页面浅灰底，衬托白色卡片 */
+.page {
+  min-height: 100vh;
+  background-color: #f5f7fa;
+  padding: 24rpx;
+  box-sizing: border-box;
+}
+
+/* 卡片：白底 + 阴影 + 细边 = 清晰轮廓 */
+.user-card {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 24rpx;
+  margin-bottom: 16rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.06);
+  border: 1rpx solid #eee;
+}
+
+.avatar {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 50%;
+  background-color: #e8e8e8;
+  flex-shrink: 0;
+}
+
+.user-info {
+  flex: 1;
+  margin-left: 20rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.username {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 6rpx;
+}
+
+.user-id {
+  font-size: 22rpx;
+  color: #bbb;
+}
+
+.consumption {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex-shrink: 0;
+}
+
+.consumption-num {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #ff4d4f;
+}
+
+.consumption-label {
+  font-size: 20rpx;
+  color: #bbb;
+  margin-top: 4rpx;
+}
+
+/* 手机号行同样加卡片效果 */
+.phone-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 24rpx;
+  margin-bottom: 16rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.06);
+  border: 1rpx solid #eee;
+}
+
+.phone-label {
+  font-size: 28rpx;
+  color: #888;
+}
+
+.phone-value {
+  font-size: 28rpx;
+  color: #333;
+}
+
+/* 按钮区只控制间距，不碰按钮内部样式 */
+.btn-group {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+/* ===== 功能入口行 ===== */
+.menu-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 28rpx 0;
+  margin-bottom: 40rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.06);
+  border: 1rpx solid #eee;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex: 1;
+  position: relative;
+}
+
+.menu-text {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.menu-icon {
+  width: 44rpx;
+  height: 44rpx;
+  margin-bottom: 8rpx;
+}
+
+/* 客服按钮重置默认样式（必须，否则会撑开） */
+.kefu-item {
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+  line-height: normal;
+}
+.kefu-item::after {
+  border: none;
+}
+
+/* 垂直分割线 */
+.divider-vertical {
+  width: 1rpx;
+  height: 40rpx;
+  background-color: #eee;
+}
+
+/* 可选角标 */
+.badge {
+  position: absolute;
+  top: -12rpx;
+  right: 18rpx;
+  background-color: #ff4d4f;
+  color: #fff;
+  font-size: 20rpx;
+  min-width: 28rpx;
+  height: 28rpx;
+  line-height: 28rpx;
+  text-align: center;
+  border-radius: 14rpx;
+  padding: 0 6rpx;
+  box-sizing: border-box;
+}

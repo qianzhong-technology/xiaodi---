@@ -1,0 +1,169 @@
+/* pages/aboutUs/index.wxss */
+.page {
+  min-height: 100vh;
+  background-color: #f5f7fa;
+  padding: 24rpx;
+  box-sizing: border-box;
+}
+
+/* ===== 通用卡片 ===== */
+.card {
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.06);
+  border: 1rpx solid #eee;
+}
+
+.card-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 20rpx;
+  position: relative;
+  padding-left: 20rpx;
+}
+
+.card-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6rpx;
+  height: 28rpx;
+  background-color: #00cc99;
+  border-radius: 3rpx;
+}
+
+/* ===== 顶部信息卡片 ===== */
+.info-card {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  width: 136rpx;
+  height: 136rpx;
+  border-radius: 50%;
+  background-color: #e8e8e8;
+  flex-shrink: 0;
+}
+
+.info-content {
+  flex: 1;
+  margin-left: 28rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.name-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+
+.nickname {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.gender-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: 50%;
+  font-size: 22rpx;
+  font-weight: 700;
+  margin-left: 12rpx;
+  background-color: #e6f2ff;
+  color: #1677ff;
+  line-height: 1;
+}
+
+.gender-badge.female {
+  background-color: #ffe6f0;
+  color: #ff4d85;
+}
+
+.status-row {
+  display: flex;
+  align-items: center;
+  font-size: 26rpx;
+  color: #888;
+  margin-bottom: 12rpx;
+}
+
+.status-dot {
+  width: 14rpx;
+  height: 14rpx;
+  border-radius: 50%;
+  margin-right: 8rpx;
+}
+
+.status-dot.online {
+  background-color: #00cc99;
+}
+
+.status-dot.offline {
+  background-color: #bbb;
+}
+
+.status-text {
+  margin-right: 20rpx;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+
+.tag {
+  background-color: #f0faf5;
+  color: #00cc99;
+  padding: 6rpx 20rpx;
+  border-radius: 24rpx;
+  font-size: 22rpx;
+}
+
+/* ===== 个人简介 ===== */
+.bio {
+  font-size: 28rpx;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* ===== 游戏列表 ===== */
+.game-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.game-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16rpx 20rpx;
+  background-color: #f8f9fa;
+  border-radius: 10rpx;
+}
+
+.game-name {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.game-level {
+  font-size: 24rpx;
+  color: #00cc99;
+  background-color: #e6f7f0;
+  padding: 4rpx 16rpx;
+  border-radius: 20rpx;
+}

@@ -1,0 +1,196 @@
+<!--pages/manager/index.wxml-->
+<view class="admin-page">
+
+<!-- 顶部欢迎条 -->
+<view class="admin-header">
+  <view class="header-left">
+    <text class="header-title">xiaodi 管理后台</text>
+    <text class="header-sub">欢迎回来, {{adminName}}</text>
+  </view>
+  <view class="header-avatar">
+    <text class="avatar-text">迪</text>
+  </view>
+</view>
+
+<!-- 菜单 Tab 栏 -->
+<view class="menu-bar">
+  <view 
+    class="menu-item {{activeTab === 0 ? 'menu-active' : ''}}" 
+    bind:tap="switchTab"
+    data-index="0"
+  >
+    <text class="menu-icon">📦</text>
+    <text class="menu-text">发布商品</text>
+  </view>
+  <view 
+    class="menu-item {{activeTab === 1 ? 'menu-active' : ''}}" 
+    bind:tap="switchTab" 
+    data-index="1"
+  >
+    <text class="menu-icon">📤</text>
+    <text class="menu-text">商品管理</text>
+  </view>
+  <view 
+    class="menu-item {{activeTab === 2 ? 'menu-active' : ''}}" 
+    bind:tap="switchTab" 
+    data-index="2"
+  >
+    <text class="menu-icon">👥</text>
+    <text class="menu-text">用户列表</text>
+  </view>
+</view>
+
+<!-- ========== 分区1: 发布商品 ========== -->
+<view class="tab-panel" wx:if="{{activeTab === 0}}">
+  <view class="panel-title">
+    <text class="panel-title-text">发布新商品</text>
+  </view>
+
+  <view class="form-card">
+    <view class="form-row">
+      <text class="form-label">商品名称</text>
+      <input class="form-input" placeholder="展示在商品卡片的名称" placeholder-class="placeholder" bindinput="onInputName" />
+    </view>
+
+    <view class="form-row">
+      <text class="form-label">价格 (¥)</text>
+      <input class="form-input" type="number" placeholder="商品定价" placeholder-class="placeholder" bindinput="onInputPrice" />
+    </view>
+
+    <view class="form-row">
+      <text class="form-label">时长 (分钟)</text>
+      <input class="form-input" type="number" placeholder="陪玩时长" placeholder-class="placeholder" bindinput="onInputPlayTime" />
+    </view>
+
+    <view class="form-row form-row-column">
+      <text class="form-label">商品描述</text>
+      <textarea class="form-textarea" placeholder="请输入描述..." placeholder-class="placeholder" bindinput="onInputDesc"></textarea>
+    </view>
+
+    <view class="form-row form-row-column">
+      <text class="form-label">商品图片</text>
+      <view class="upload-area">
+        <view class="upload-btn" bind:tap="addFaceImage" wx:if="{{!p_faceImage.tempFilePath}}">
+          <text class="upload-plus">+</text>
+          <text class="upload-text">上传图片</text>
+        </view>
+        <view class="upload-thumb" wx:if="{{p_faceImage.tempFilePath}}">
+          <image style="width: 160rpx; height: 160rpx; border-radius: 16rpx;" src="{{p_faceImage.tempFilePath}}"></image>
+          <text class="thumb-close" bind:tap="removeFaceImage">x</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="form-row form-row-column">
+      <text class="form-label">轮播图片</text>
+      <view class="upload-area">
+        <view class="upload-btn" bind:tap="addImage">
+          <text class="upload-plus">+</text>
+          <text class="upload-text">上传图片</text>
+        </view>
+        <view class="upload-thumb" wx:for="{{p_images}}" wx:key="index" wx:for-item="item">
+          <image style="width: 160rpx; height: 160rpx; border-radius: 16rpx;" src="{{item.tempFilePath}}"></image>
+          <text class="thumb-close" bind:tap="removeImage" data-index="{{index}}">x</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <button type="primary" style="margin-top: 20px;" bind:tap="publishGood">发布商品</button>
+</view>
+
+<!-- ========== 分区2: 下架商品 ========== -->
+<view class="tab-panel" wx:if="{{activeTab === 1}}">
+  <view class="panel-title">
+    <text class="panel-title-text">商品列表</text>
+    <text class="panel-count">共 {{goodsList.length}} 件</text>
+  </view>
+
+  <view class="search-bar">
+    <text class="search-icon">🔍</text>
+    <input class="search-input" placeholder="搜索商品名称..." placeholder-class="placeholder" confirm-type="search" bindconfirm="searchGood" />
+  </view>
+
+  <view class="goods-list-admin">
+    <view class="goods-admin-card {{item.isAvailable ? 'goods-admin-card-onShelf' : 'goods-admin-card-offShelf'}}" wx:for="{{goodsList}}" wx:key="id">
+      <view class="goods-admin-img-placeholder">
+        <image src="{{item.imageSrc}}" style="width: 130rpx; height: 130rpx;"></image>
+      </view>
+      <view class="goods-admin-info">
+        <text class="goods-admin-name">{{item.name}}</text>
+        <view class="goods-admin-meta">
+          <text class="goods-admin-price">¥{{item.price}}</text>
+          <text class="goods-admin-sales">已售 {{item.sales}}</text>
+        </view>
+      </view>
+      <view class="goods-admin-actions">
+        <view class="action-btn {{item.isAvailable ? 'offshelf-btn' : 'onshelf-btn'}}" bind:tap="offShelf" data-index="{{index}}">
+          <text>{{item.isAvailable ? '下架' : '上架'}}</text>
+        </view>
+        <view class="action-btn edit-btn" bind:tap="Edit">
+          <text>编辑</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="empty-state" wx:if="{{goodsList.length === 0}}">
+      <text class="empty-icon">📭</text>
+      <text class="empty-text">暂无在售商品</text>
+    </view>
+  </view>
+</view>
+
+<!-- ========== 分区3: 用户列表 ========== -->
+<view class="tab-panel" wx:if="{{activeTab === 2}}">
+  <view class="panel-title">
+    <text class="panel-title-text">所有用户</text>
+    <text class="panel-count">共 {{userList.length}} 人</text>
+  </view>
+
+  <view class="search-bar">
+    <text class="search-icon">🔍</text>
+    <input class="search-input" placeholder="搜索用户名/手机号..." placeholder-class="placeholder" confirm-type="search" bindconfirm="searchUser" />
+  </view>
+
+  <view class="user-table">
+    <view class="table-header">
+      <text class="th th-user">用户</text>
+      <text class="th th-phone">手机号</text>
+      <text class="th th-role">角色</text>
+      <text class="th th-status">状态</text>
+      <text class="th th-action">操作</text>
+    </view>
+
+    <view class="table-row" wx:for="{{userList}}" wx:key="id">
+      <view class="th th-user user-cell">
+        <view class="user-avatar-small">{{item.username[0]}}</view>
+        <text class="user-name">{{item.username}}</text>
+      </view>
+      <text class="th th-phone">{{item.phoneNumber}}</text>
+      <text class="th th-role">
+        <text class="role-badge {{item.isAdmin ? 'role-admin' : 'role-user'}}">
+          {{item.isAdmin ? '管理员' : '普通用户'}}
+        </text>
+      </text>
+      <text class="th th-status">
+        <text class="status-dot {{item.isAvailable ? 'status-normal' : 'status-banned'}}"></text>
+        <text class="status-text">{{item.isAvailable ? '正常' : '封禁'}}</text>
+      </text>
+      <view class="th th-action">
+        <view class="action-btn-small {{item.isAvailable ? 'btn-disable' : 'btn-enable'}}" wx:if="{{!item.isAdmin}}" bind:tap="Ban" data-index="{{index}}">
+          <text>{{item.isAvailable ? '封禁' : '解封'}}</text>
+        </view>
+        <view class="action-btn-small" style="color: gray; background-color: #c1c1c1;" wx:if="{{item.isAdmin}}">
+          <text>权限不足</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="empty-state" wx:if="{{userList.length === 0}}">
+      <text class="empty-icon">👤</text>
+      <text class="empty-text">暂无用户</text>
+    </view>
+  </view>
+</view>
+
+</view>

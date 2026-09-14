@@ -1,0 +1,91 @@
+<!--pages/order/index.wxml-->
+<view class="page">
+  <!-- ===== 顶部 Tab ===== -->
+  <view class="tab-bar">
+    <view 
+      class="tab-item {{openType === 'orders' ? 'active' : ''}}" 
+      bind:tap="switchTab" 
+      data-type="orders"
+    >
+      我的订单
+    </view>
+    <view 
+      class="tab-item {{openType === 'pendings' ? 'active' : ''}}" 
+      bind:tap="switchTab" 
+      data-type="pendings"
+    >
+      待确认
+    </view>
+  </view>
+
+  <!-- ===== 空状态 ===== -->
+  <view class="empty" wx:if="{{orderList.length === 0}}">
+    <image class="empty-img" src="/images/empty-cart.png" mode="aspectFit"></image>
+    <text class="empty-text">{{openType === 'pendings' ? '暂无待确认订单' : '暂无订单记录'}}</text>
+  </view>
+
+  <!-- ===== 订单列表 ===== -->
+  <view class="order-list" wx:else>
+    <view class="order-card" wx:for="{{orderList}}" wx:key="index" bind:tap="ToOrderDetail" data-index="{{index}}">
+      <!-- 订单头部：编号 + 状态 -->
+      <view class="order-header">
+        <text class="order-id">订单号：{{item._id}}</text>
+        <text class="order-status status-{{item.status}}">{{statusText[item.status]}}</text>
+      </view>
+
+      <!-- 商品信息 -->
+      <view class="order-body">
+        <image class="goods-img" src="{{item.goodData.imageSrc}}" mode="aspectFill"></image>
+        <view class="goods-info">
+          <text class="goods-name">{{item.goodData.name}}</text>
+          <text class="goods-meta">x {{item.amount}}</text>
+          <text class="partner-name">陪玩: {{item.partner.nickname}}</text>
+        </view>
+        <text class="goods-price">¥ {{item.goodData.price * item.amount}}</text>
+      </view>
+
+      <!-- 订单底部：时间 + 操作 -->
+      <view class="order-footer">
+        <text class="order-time">{{item.createTime}}</text>
+        <view class="order-actions">
+          <!-- 详情 -->
+          <view 
+            wx:if="{{item.isPay}}"
+            class="action-btn" 
+            catch:tap="ToOrderDetail" 
+            data-index="{{index}}"
+          >详情</view>
+          <!-- 取消订单 -->
+          <view 
+            class="action-btn cancel-btn" 
+            wx:if="{{!item.isPay && item.status === 'unpaid'}}" 
+            catch:tap="cancelOrder"
+            data-id="{{item._id}}"
+          >取消</view>
+          <!-- 支付 -->
+          <view 
+            class="action-btn pay-btn" 
+            wx:if="{{!item.isPay && item.status === 'unpaid'}}"
+            catch:tap="payOrder"
+            data-index="{{index}}"
+          >支付</view>
+          <!-- 已确认/已完成：再来一单 -->
+          <view 
+            class="action-btn reorder-btn" 
+            wx:if="{{item.status === 'confirmed' || item.status === 'completed'}}" 
+            catch:tap="reorder" 
+            data-id="{{item._id}}"
+          >再来一单</view>
+          <view 
+            class="action-btn comment-btn" 
+            wx:if="{{item.status === 'completed' && !item.isCommented}}" 
+            catch:tap="commentOrder"
+            data-id="{{item._id}}"
+          >评价</view>
+          <!-- 已取消：删除记录 -->
+          <view class="action-btn delete-btn" wx:if="{{item.status === 'cancelled'}}" catch:tap="deleteOrder" data-id="{{item._id}}">删除</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

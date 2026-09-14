@@ -1,0 +1,60 @@
+<!--pages/placeOrder/index.wxml-->
+<view class="page">
+  <!-- ===== 联系信息 ===== -->
+  <view class="card contact-card">
+    <view class="contact-left">
+      <text class="contact-label">联系电话(微信同步)</text>
+      <text class="contact-value">{{contactPhone}}</text>
+    </view>
+  </view>
+
+  <!-- ===== 商品清单 ===== -->
+  <view class="card goods-card">
+    <view class="card-title">商品清单</view>
+    <view class="goods-list">
+      <view class="goods-item" wx:for="{{selectedGoods}}" wx:key="index">
+        <image class="goods-img" src="{{item.imageSrc}}" mode="aspectFill"></image>
+        <view class="goods-info">
+          <text class="goods-name">{{item.name}}</text>
+          <text class="goods-price">¥ {{item.price}}</text>
+        </view>
+        <view class="goods-right">
+          <text class="goods-amount">x {{item.amount}}</text>
+          <text class="goods-subtotal">¥ {{item.amount * item.price}}</text>
+        </view>
+        <!-- 陪玩列表 -->
+        <picker class="partner-picker" mode="selector" range="{{item.availablePartners}}" range-key="nickname" value="{{item.selectedPartnerIndex}}" bind:change="onPartnerChange" data-id="{{item._id}}">
+          <view class="picker-view">
+            <text class="picker-label">陪玩：</text>
+            <view class="picker-value">
+              {{item.availablePartners[item.selectedPartnerIndex].nickname || '请选择陪玩'}}
+            </view>
+            <text class="picker-arrow">▾</text>
+          </view>
+        </picker>
+        </view>
+    </view>
+  </view>
+
+  <!-- ===== 备注 ===== -->
+  <view class="card remark-card">
+    <view class="card-title">订单备注</view>
+    <textarea
+      class="remark-input"
+      placeholder="选填，请输入特殊要求（如游戏区服、时间段等）"
+      maxlength="100"
+      bind:input="onRemarkInput"
+    ></textarea>
+    <text class="remark-count">{{remark.length}}/100</text>
+  </view>
+
+  <!-- ===== 底部提交栏 ===== -->
+  <view class="bottom-bar" style="padding-bottom: env(safe-area-inset-bottom);">
+    <view class="bottom-info">
+      <text class="bottom-label">合计：</text>
+      <text class="bottom-total">¥ {{totalPrice}}</text>
+      <text class="bottom-count">共 {{totalCount}} 件</text>
+    </view>
+    <view class="submit-btn" bind:tap="onSubscribeOrder">提交订单</view>
+  </view>
+</view>

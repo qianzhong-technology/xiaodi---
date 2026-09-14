@@ -1,0 +1,20 @@
+<!-- components/good/good.wxml -->
+<view class="good-card" bind:tap="toDetail">
+  <view class="img-box">
+    <image class="cover" src="{{goodData.imageSrc}}" mode="aspectFill"></image>
+  </view>
+
+  <view class="info-box">
+    <text class="title" max-lines="2"> {{goodData.name}} </text>
+  </view>
+
+  <view class="footer-box">
+    <view class="price-area">
+      <text class="symbol">¥</text>
+      <text class="num">{{goodData.price}}</text>
+    </view>
+    <view class="cart-btn" catch:tap="addToCart">
+      <image src="/images/cart.png" mode="aspectFit" class="cart-btn-image"></image>
+    </view>
+  </view>
+</view>

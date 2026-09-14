@@ -1,0 +1,84 @@
+<!--pages/cart/cart.wxml-->
+<view class="cart-container">
+  <!-- ===== 空状态 ===== -->
+  <view class="cart-empty" wx:if="{{cartList.length === 0}}">
+    <image class="empty-img" src="/images/empty-cart.png" mode="aspectFit"></image>
+    <text class="empty-text">购物车空空如也</text>
+    <view class="empty-btn" bind:tap="goHome">去逛逛</view>
+  </view>
+
+  <!-- ===== 有商品 ===== -->
+  <block wx:else>
+    <!-- 头部 -->
+    <view class="cart-header">
+      <text class="cart-title">我的</text>
+      <text class="cart-edit" bind:tap="toggleEdit">{{isEditing ? '完成' : '管理'}}</text>
+    </view>
+
+    <!-- 商品列表 -->
+    <view class="cart-list">
+      <view class="cart-item" wx:for="{{cartList}}" wx:key="index" bind:tap="toDetail" data-index="{{index}}">
+        <!-- 勾选框 -->
+        <view class="item-check" catch:tap="toggleCheck" data-index="{{index}}">
+          <view class="check-icon {{item.checked ? 'checked' : ''}}">
+            <text wx:if="{{item.checked}}" class="check-text">✓</text>
+          </view>
+        </view>
+
+        <!-- 商品封面 -->
+        <image class="item-image" src="{{item.imageSrc}}" mode="aspectFill"></image>
+
+        <!-- 商品信息 -->
+        <view class="item-info">
+          <text class="item-name">{{item.name}}</text>
+          <text class="item-spec">{{item.playTime * item.amount}} 分钟</text>
+
+          <view class="item-bottom">
+            <!-- 单价 -->
+            <text class="item-price">{{item.price}}</text>
+
+            <!-- 数量加减（catch 阻止冒泡，避免触发勾选） -->
+            <view class="quantity-control" wx:if="{{!isEditing}}">
+              <view class="qty-btn minus {{item.amount <= 1 ? 'disabled' : ''}}" catch:tap="decreaseAmount" data-id="{{item._id}}">-</view>
+              <text class="qty-num">{{item.amount}}</text>
+              <view class="qty-btn plus" catch:tap="increaseAmount" data-id="{{item._id}}">+</view>
+            </view>
+          </view>
+        </view>
+        <!-- 下架蒙版 -->
+        <view class="off-shelf-mask" wx:if="{{!(item.isAvailable || isEditing)}}">
+          <text class="off-shelf-text">商品已下架</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- ===== 底部结算栏 ===== -->
+    <view class="cart-footer">
+      <!-- 全选 -->
+      <view class="footer-left" bind:tap="toggleAllCheck">
+        <view class="check-icon {{isAllChecked ? 'checked' : ''}}">
+          <text wx:if="{{isAllChecked}}" class="check-text">✓</text>
+        </view>
+        <text class="footer-check-text">全选</text>
+      </view>
+
+      <!-- 正常模式：合计 + 结算 -->
+      <view class="footer-right" wx:if="{{!isEditing}}">
+        <view class="footer-total">
+          <text class="total-label">合计：</text>
+          <text class="total-price">¥{{totalPrice}}</text>
+        </view>
+        <view class="footer-checkout-btn" bind:tap="checkout">
+          结算({{totalCount}})
+        </view>
+      </view>
+
+      <!-- 编辑模式：删除 -->
+      <view class="footer-right" wx:else>
+        <view class="footer-delete-btn" bind:tap="deleteSelected">
+          删除({{totalCount}})
+        </view>
+      </view>
+    </view>
+  </block>
+</view>

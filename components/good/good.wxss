@@ -1,0 +1,81 @@
+/* components/good/good.wxss */
+.good-card {
+  width: 100%;
+  background-color: #f8f8f8;
+  border-radius: 16rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.3); 
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 40rpx;
+  border: 1rpx solid #f2f2f2;
+  box-sizing: border-box;
+}
+
+.img-box {
+  width: 100%;
+  height: 340rpx;
+  position: relative;
+}
+
+.cover {
+  width: 100%;
+  height: 100%;
+}
+
+.info-box {
+  padding: 20rpx;
+  flex: 1;
+}
+
+.title {
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.footer-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20rpx 20rpx 20rpx;
+}
+
+.price-area {
+  display: flex;
+  align-items: baseline; /* 让 ¥ 和 299 的底部对齐，更美观 */
+}
+
+.symbol {
+  color: #ff4d4f; /* 红色人民币符号 */
+  font-size: 24rpx;
+  font-weight: bold;
+}
+
+.num {
+  color: #ff4d4f; /* 红色价格 */
+  font-size: 36rpx;
+  font-weight: bold;
+  margin-left: 4rpx;
+}
+
+/* 购物车按钮 */
+.cart-btn {
+  width: 60rpx;
+  height: 60rpx;
+  background-color: #00cc99; /* 青色背景 */
+  border-radius: 50%;        /* 圆形按钮 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cart-btn-image {
+  width: 36rpx;
+  height: 36rpx;
+}

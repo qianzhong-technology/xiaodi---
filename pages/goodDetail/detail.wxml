@@ -1,0 +1,118 @@
+<!--pages/goodDetail/detail.wxml-->
+<view class="detail-container">
+  <swiper class="swiper" indicator-dots autoplay circular wx:if="{{isShowSwiperImgs}}">
+    <swiper-item wx:for="{{swiperImgs}}" wx:key="index" wx:for-item="item" bind:tap="previewImages">
+      <image class="swiper-img" src="{{item}}" mode="aspectFill"></image>
+    </swiper-item>
+
+    <swiper-item wx:if="{{!swiperImgs.length}}">
+      <image class="swiper-img" src="/images/logo.png" mode="aspectFill"></image>
+    </swiper-item>
+  </swiper>
+
+  <view class="price-section">
+    <view class="price-main">
+      <text class="price-symbol">¥</text>
+      <text class="price-num">{{goodData.price}}</text>
+      <text class="price-unit">/{{goodData.playTime}}分钟</text>
+    </view>
+    <view class="price-sub">
+      <text class="sales">已售 {{goodData.sales || 0}}</text>
+    </view>
+  </view>
+
+  <view class="desc-section">
+    <view class="section-title">{{goodData.name}} 详情</view>
+    <text class="desc-text">{{goodData.description}}</text>
+
+    <!-- 注意事项 -->
+    <view class="notice">
+      <text class="notice-title">注意事项：</text>
+      <text class="notice-item">• 下单后请第一时间联系客服发送游戏ID</text>
+      <text class="notice-item">• 支持中途退款，按剩余时长折算</text>
+      <text class="notice-item">• 禁止辱骂/挂机，违者有权终止服务</text>
+    </view>
+  </view>
+
+  <!-- ===== 新增：支持的陪玩列表 ===== -->
+  <view class="desc-section">
+    <view class="section-title">支持陪玩</view>
+
+    <view class="partner-list">
+      <view class="partner-item" wx:for="{{availablePartners}}" wx:key="index" bind:tap="ToPartnerDetail" data-index="{{index}}">
+        <image class="partner-avatar" src="{{item.imageSrc}}" mode="aspectFill"></image>
+        <view class="partner-info">
+          <view class="name-row">
+            <text class="partner-name">{{item.nickname}}</text>
+            <view class="info-tags">
+              <view class="online-dot {{item.isOnline ? 'online' : 'offline'}}"></view>
+              <view class="gender-badge {{item.gender === 'male' ? 'male' : 'female'}}">
+                <text>{{item.gender === 'male' ? '♂' : '♀'}}</text>
+              </view>
+            </view>
+          </view>
+          <text class="partner-desc">{{item.bio}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 空状态提示 -->
+    <view wx:if="{{availablePartners.length === 0}}" class="empty-tip">
+      暂无支持的陪玩
+    </view>
+  </view>
+
+  <!-- 用户评论 -->
+  <view class="comment-section">
+    <view class="section-title">商品评价</view>
+
+    <block wx:for="{{commentList}}" wx:key="index">
+      <view class="comment-item">
+        <view class="comment-header">
+          <view class="spent-badge" style="background: {{item.badgeColor}};">
+            <text class="spent-text">¥{{item.consumption}}</text>
+          </view>
+          <view class="user-meta">
+            <text class="comment-nickname">{{item.username}}</text>
+            <text class="comment-time">{{item.time}}</text>
+          </view>
+        </view>
+        <!-- 评论内容 -->
+        <view class="comment-content">
+          <text>{{item.content}}</text>
+        </view>
+      </view>
+    </block>
+
+    <!-- 空状态 -->
+    <view wx:if="{{commentList.length === 0}}" class="empty-tip">
+      暂无评价，快来抢沙发吧~
+    </view>
+  </view>
+
+  <!-- 占位，防止底部操作栏挡住内容 -->
+  <view style="height: 120rpx;"></view>
+
+  <view class="bottom-bar" style="padding-bottom: env(safe-area-inset-bottom);">
+    <!-- 客服 -->
+    <button class="kefu-btn" open-type="contact" send-message-title="陪玩咨询">
+      <image class="kefu-icon" src="/images/kefu.png"></image>
+      <text class="kefu-text">客服</text>
+    </button>
+
+    <!-- 右侧操作区 -->
+    <view class="action-area">
+      <!-- 未加入购物车 -->
+      <view class="order-btn" wx:if="{{inCartAmount <= 0}}" bind:tap="addToCart">
+        加入购物车
+      </view>
+
+      <!-- 已在购物车：数量加减 -->
+      <view class="stepper" wx:else>
+        <view class="step-btn {{inCartAmount <= 1 ? 'disabled' : ''}}" catch:tap="decreaseCart">-</view>
+        <text class="step-num">{{inCartAmount}}</text>
+        <view class="step-btn" catch:tap="increaseCart">+</view>
+      </view>
+    </view>
+  </view>
+</view>

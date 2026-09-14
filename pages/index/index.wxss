@@ -1,0 +1,110 @@
+/* pages/index/index.wxss */
+.goods-list {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 20rpx 30rpx;
+  box-sizing: border-box;
+}
+
+.goods-list > good {
+  width: calc(50% - 10rpx);
+  margin-bottom: 20rpx;
+}
+
+.filter-container {
+  width: 100%;
+  background-color: #f8f9fa; /* 极浅灰，类似微信首页背景 */
+  border-radius: 16rpx;
+  padding: 30rpx;
+  box-sizing: border-box;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.1); /* 浅灰阴影，亮色系不突兀 */
+  border: 1rpx solid #e9ecef; /* 浅灰边框，区分边界 */
+  margin-bottom: 30rpx;
+}
+
+/* 分组标题：深灰文字，清晰醒目 */
+.group-title {
+  color: #212529; /* 近黑深灰，对比度高 */
+  font-size: 30rpx;
+  font-weight: bold;
+  margin-bottom: 24rpx;
+  display: block;
+}
+
+/* 输入框行容器 */
+.filter-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20rpx;
+}
+
+.filter-group:last-of-type .filter-row {
+  margin-bottom: 0;
+}
+
+/* 单个输入框容器：纯白背景，浅灰边框 */
+.filter-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  height: 72rpx;
+  background-color: #ffffff; /* 纯白背景 */
+  border-radius: 12rpx;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+  border: 2rpx solid #dee2e6; /* 浅灰边框 */
+  transition: all 0.2s ease;
+}
+
+/* 聚焦时绿色高亮，亮色系下更清爽 */
+.filter-item:focus-within {
+  border-color: #00c853;
+  box-shadow: 0 0 12rpx rgba(0, 200, 83, 0.15);
+}
+
+/* 输入框左侧标签：中灰文字，柔和不抢眼 */
+.filter-label {
+  color: #6c757d;
+  font-size: 26rpx;
+  margin-right: 16rpx;
+  white-space: nowrap;
+}
+
+/* 输入框核心样式：深灰文字，白底 */
+.filter-input {
+  flex: 1;
+  height: 100%;
+  color: #495057; /* 深灰文字，清晰易读 */
+  font-size: 28rpx;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0;
+  text-align: center;
+}
+
+/* 输入框占位符：浅灰，区分未输入状态 */
+.filter-input::placeholder {
+  color: #adb5bd; /* 浅灰占位符 */
+  font-size: 26rpx;
+}
+
+/* 输入框右侧单位：亮绿色，突出显示 */
+.filter-unit {
+  color: #00c853; /* 和聚焦边框同色，风格统一 */
+  font-size: 26rpx;
+  margin-left: 16rpx;
+  white-space: nowrap;
+}
+
+.bottom-text {
+  position: fixed;
+  bottom: 10rpx;           /* 距离底部距离，可调整 */
+  left: 0;
+  right: 0;
+  text-align: center;      /* 水平居中 */
+  font-size: x-small;
+  color: #999;
+}

@@ -1,0 +1,47 @@
+<!-- pages/orderDetail/detail.wxml -->
+<view class="status-header">订单证明</view>
+
+<!-- 商品信息卡片 -->
+<view class="card product-info">
+  <image src="{{order.goodData.imageSrc}}" class="product-img" mode="aspectFill"></image>
+  <view class="product-detail">
+    <view class="product-title">{{order.goodData.name}}</view>
+    <view class="product-price">RMB {{order.goodData.price * order.amount}}</view>
+  </view>
+</view>
+
+<view class="card detail-list" bind:tap="copyOrderID" data-id="{{order._id}}">
+  <text class="label">订单编号</text>
+  <text class="value">{{order._id}}</text>
+</view>
+<view class="card detail-list" bind:tap="copyOrderID" data-id="{{order.transactionId}}">
+  <text class="label">微信流水号</text>
+  <text class="value">{{order.transactionId}}</text>
+</view>
+
+<view class="list-item">
+  <text class="label">下单时间</text>
+  <text class="value">{{order.createTime}}</text>
+</view>
+<view class="list-item">
+  <text class="label">支付时间</text>
+  <text class="value">{{order.payTime}}</text>
+</view>
+<view class="list-item" bind:longpress="showPartnerDetail">
+  <text class="label">陪玩</text>
+  <text class="value">{{order.partner.nickname}}</text>
+</view>
+<view class="list-item">
+  <text class="label">订单状态</text>
+  <text class="value">{{statusText[order.status]}}</text>
+</view>
+<view class="list-item" wx:if="{{order.isCommented}}">
+  <text class="label">我的评论</text>
+  <text class="value">{{order.comment}}</text>
+</view>
+
+<!-- 底部固定按钮栏 -->
+<view class="bottom-bar">
+  <button type="default" style="border-radius: 17px; color: gray;" bind:tap="ToAboutPartner">陪玩主页</button>
+  <button type="primary" style="border-radius: 17px; margin-left: 10px;" bind:tap="reorder">再次下单</button>
+</view>

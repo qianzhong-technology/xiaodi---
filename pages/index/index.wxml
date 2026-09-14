@@ -1,0 +1,77 @@
+<!--pages/index/index.wxml-->
+<view class="filter-container" wx:if="{{isShowFilter}}">
+  <!-- 价格筛选组 -->
+  <view class="filter-group">
+    <text class="group-title">价格区间 ({{priceRange[0]}}/{{priceRange[1]}})</text>
+    <view class="filter-row">
+      <!-- 最低价 -->
+      <view class="filter-item">
+        <text class="filter-label">最低</text>
+        <input
+          class="filter-input" 
+          type="number" 
+          placeholder="{{priceRange[0]}}"
+          bindinput="bindMinPrice"
+          value="{{inputMinPrice}}"
+        />
+        <text class="filter-unit">元</text>
+      </view>
+      <!-- 最高价 -->
+      <view class="filter-item">
+        <text class="filter-label">最高</text>
+        <input 
+          class="filter-input" 
+          type="number" 
+          placeholder="{{priceRange[1]}}"
+          bindinput="bindMaxPrice"
+          value="{{inputMaxPrice}}"
+        />
+        <text class="filter-unit">元</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="filter-group">
+    <text class="group-title">陪玩时长区间 ({{playTimeRange[0]}}/{{playTimeRange[1]}})</text>
+    <view class="filter-row">
+      <view class="filter-item">
+        <text class="filter-label">最短</text>
+        <input
+          class="filter-input" 
+          type="number" 
+          placeholder="{{playTimeRange[0]}}"
+          bindinput="bindMinPlayTime"
+          value="{{inputMinPlayTime}}"
+        />
+        <text class="filter-unit">分钟</text>
+      </view>
+      <view class="filter-item">
+        <text class="filter-label">最长</text>
+        <input 
+          class="filter-input" 
+          type="number" 
+          placeholder="{{playTimeRange[1]}}"
+          bindinput="bindMaxPlayTime"
+          value="{{inputMaxPlayTime}}"
+        />
+        <text class="filter-unit">分钟</text>
+      </view>
+    </view>
+  </view>
+  <view style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin-top: 10px;">
+    <button type="primary" size="mini" bind:tap="searchGoods">搜索</button>
+    <view style="color: gray; font-size: x-small; margin-top: 8px;" bind:tap="hideFilter">隐藏</view>
+  </view>
+  
+</view>
+
+<view wx:if="{{isShowGoods}}" class="goods-list">
+  <block wx:for="{{goodList}}" wx:key="id" wx:for-item="item" wx:for-index="idx">
+    <good 
+      goodData="{{item}}" 
+      index="{{idx}}"
+    />
+  </block>
+</view>
+
+<text class="bottom-text" bind:tap="showFilter" wx:if="{{!isShowFilter}}">筛选</text>

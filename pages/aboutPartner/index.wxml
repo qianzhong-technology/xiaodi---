@@ -1,0 +1,38 @@
+<!--pages/aboutUs/index.wxml-->
+<view class="page">
+  <!-- ===== 顶部信息卡片 ===== -->
+  <view class="card info-card">
+    <image class="avatar" src="{{partner.imageSrc}}" mode="aspectFill" bind:tap="previewAvatar"></image>
+    <view class="info-content">
+      <view class="name-row">
+        <text class="nickname">{{partner.nickname}}</text>
+        <text class="gender-badge" wx:if="{{partner.gender === 'male'}}">♂</text>
+        <text class="gender-badge female" wx:elif="{{partner.gender === 'female'}}">♀</text>
+      </view>
+      <view class="status-row">
+        <view class="status-dot {{partner.isOnline ? 'online' : 'offline'}}"></view>
+        <text class="status-text">{{partner.isOnline ? '在线' : '离线'}}</text>
+      </view>
+      <view class="tags">
+        <text class="tag" wx:for="{{partner.tags}}" wx:key="index">{{item}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- ===== 个人简介 ===== -->
+  <view class="card">
+    <view class="card-title">个人简介</view>
+    <text class="bio">{{partner.bio || '这位陪玩很懒，什么都没写~'}}</text>
+  </view>
+
+  <!-- ===== 擅长游戏 ===== -->
+  <view class="card">
+    <view class="card-title">擅长游戏</view>
+    <view class="game-list">
+      <view class="game-item" wx:for="{{partner.games}}" wx:key="index">
+        <text class="game-name">{{item.name}}</text>
+        <text class="game-level">{{item.level}}</text>
+      </view>
+    </view>
+  </view>
+</view>

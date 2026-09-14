@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "点单",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "good": "/components/good/good"
+  }
+}

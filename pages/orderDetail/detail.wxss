@@ -1,0 +1,124 @@
+/* pages/orderDetail/detail.wxss */
+
+page {
+  background-color: #07c160;
+  color: #fff;
+  padding: 20px 20px 100px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.status-header {
+  font-size: 30px;
+}
+
+.card {
+  background: #fff;
+  margin: 15px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+/* 商品信息卡片内部 flex 布局 */
+.product-info {
+  display: block;
+  align-items: center;
+  padding: 15px ;
+}
+
+.product-img {
+  width: 140px;
+  height: 140px;
+  border-radius: 8px;
+  background-color: #eee;
+  margin-right: 15px;
+  object-fit: cover;
+}
+
+.product-detail {
+  flex: 1;
+}
+
+.product-title {
+  font-size: 13px;
+  color: #999;
+  margin-bottom: 10px;
+}
+
+.product-price {
+  color: #ff5000;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* 订单编号卡片（内部直接放 label 和 value） */
+.detail-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: #fff;
+  margin-bottom: 10px;
+}
+
+.detail-list .label {
+  color: #666;
+  width: 80px;
+  flex-shrink: 0;
+}
+
+.detail-list .value {
+  color: #333;
+  text-align: right;
+  flex: 1;
+  word-break: break-all;
+  max-width: 60%;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid #f5f5f5;
+  font-size: 14px;
+  margin: 0 15px;
+}
+
+.list-item:last-child {
+  border-bottom: none;
+  margin-bottom: 10px;
+}
+
+.list-item .label {
+  color: #666;
+  width: 80px;
+  flex-shrink: 0;
+}
+
+.list-item .value {
+  color: #333;
+  text-align: right;
+  flex: 1;
+  word-break: break-all;
+  max-width: 60%;
+}
+
+/* 底部操作栏 */
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  min-height: 54px;          /* 略微缩小，更紧凑 */
+  background: #fff;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 8px 12px;         /* 内边距减少，节省空间 */
+  box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.05);
+  z-index: 100;
+  box-sizing: border-box;
+}
