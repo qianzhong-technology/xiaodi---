@@ -7,6 +7,7 @@ const db = cloud.database()
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
   const status = event.status;
+  if (!wxContext.OPENID) return { success: false, errMsg: '未认证用户' }
 
   if (status === 'user') {
     const e = await db.collection('users').where({
