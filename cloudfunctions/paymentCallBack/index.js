@@ -88,7 +88,7 @@ exports.main = async (event) => {
 
   try {
     for (const oid of orderIds){
-      await db.collection('orders').where({ _id: oid, status: 'unpaid', isPay: false }).update({
+      const updated = await db.collection('orders').where({ _id: oid, status: 'unpaid', isPay: false }).update({
         data: {
           isPay: true,
           payTime: db.serverDate(),
@@ -96,6 +96,13 @@ exports.main = async (event) => {
           status: 'pending'
         }
       })
+      if (!updated.stats || updated.stats.updated !== 1) {
+        const order = (await db.collection('orders').doc(oid).get()).data
+        if (!order || order.isPay !== true || order.transactionId !== transactionId) {
+          console.error('支付订单需要人工对账', outTradeNo, transactionId, oid)
+          return failXml('reconcile')
+        }
+      }
     }
   } catch(e){
     console.error('改单失败', e)
