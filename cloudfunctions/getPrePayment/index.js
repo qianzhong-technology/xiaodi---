@@ -5,6 +5,7 @@ const axios = require('axios')
 const xml2js = require('xml2js')
 
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV })
+const db = cloud.database()
 
 const APPID = process.env.WX_APPID
 const MCHID = process.env.MCH_ID
@@ -45,17 +46,39 @@ async function parseXml(str) {
 
 exports.main = async (event) => {
   const ctx = cloud.getWXContext()
-  const { totalPrice, orderIDs, body = 'xiaodi电竞-陪玩' } = event
+  const { orderIDs, body = 'xiaodi电竞-陪玩' } = event
   const outTradeNo = 'XD' + Date.now() + Math.floor(Math.random() * 1000)
 
   if (!ctx.OPENID) return { error: 'openid为空, 必须由小程序直接callFunction' }
-  const totalFee = Math.round(Number(totalPrice) * 100)
-  if (!totalFee || totalFee <= 0) return { error: '金额无效' }
+  if (!Array.isArray(orderIDs) || !orderIDs.length || orderIDs.length > 50 ||
+      orderIDs.some(id => typeof id !== 'string' || !id) || new Set(orderIDs).size !== orderIDs.length) {
+    return { error: '订单参数无效' }
+  }
+  let totalFee = 0
+  try {
+    for (const id of orderIDs) {
+      const order = (await db.collection('orders').doc(id).get()).data
+      if (!order || order._openid !== ctx.OPENID || order.status !== 'unpaid' || order.isPay !== false) {
+        return { error: '订单不存在或无权限支付' }
+      }
+      const good = (await db.collection('goods').doc(order.goodID).get()).data
+      const price = good && Number(good.price)
+      const amount = Number(order.amount)
+      if (!good || !Number.isFinite(price) || price <= 0 ||
+          !Number.isSafeInteger(amount) || amount <= 0) return { error: '订单金额无效' }
+      const unitFee = Math.round(price * 100)
+      if (!Number.isSafeInteger(unitFee) || unitFee <= 0 || Math.abs(price * 100 - unitFee) > 1e-6) {
+        return { error: '商品价格无效' }
+      }
+      totalFee += unitFee * amount
+    }
+  } catch (e) {
+    return { error: '订单查询失败' }
+  }
+  if (!Number.isSafeInteger(totalFee) || totalFee <= 0) return { error: '金额无效' }
 
   let attachStr = ''
-  if (orderIDs) {
-    attachStr = typeof orderIDs === 'string' ? orderIDs : JSON.stringify(orderIDs)
-  }
+  attachStr = JSON.stringify(orderIDs)
 
   const nonce = crypto.randomBytes(16).toString('hex')
   const req = {

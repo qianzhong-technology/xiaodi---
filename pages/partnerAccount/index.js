@@ -473,7 +473,7 @@ Page({
       title: '加载中'
     })
 
-    await wx.cloud.callFunction({
+    const res = await wx.cloud.callFunction({
       name: 'toggleChangeOnline',
       data: {
         partnerID: partnerInfo._id,
@@ -481,6 +481,11 @@ Page({
       }
     })
 
+    if (!res.result.success) {
+      wx.hideLoading()
+      wx.showToast({ title: res.result.errMsg || '操作失败', icon: 'none' })
+      return
+    }
     this.setData({
       [key]: !nowStatus
     })
@@ -584,13 +589,18 @@ Page({
       wx.showLoading({
         title: '加载中'
       })
-      await wx.cloud.callFunction({
+      const stateRes = await wx.cloud.callFunction({
         name: 'changeOrderState',
         data: {
           orderID: id,
           status: 'confirmed'
         }
       })
+      if (!stateRes.result.success) {
+        wx.hideLoading()
+        wx.showToast({ title: stateRes.result.errMsg || '操作失败', icon: 'none' })
+        return
+      }
       await wx.cloud.callFunction({
         name: 'sendOrderState',
         data: {
@@ -600,14 +610,6 @@ Page({
           orderState: '已确认',
           partners: this.data.partnerInfo.nickname,
           startTime: formatDate(new Date())
-        }
-      })
-      await wx.cloud.callFunction({
-        name: 'addUserConsumption',
-        data: {
-          openid: order._openid,
-          goodID: order.goodID,
-          totalAmount: order.amount * order.goodData.price
         }
       })
       wx.hideLoading()
@@ -745,7 +747,7 @@ Page({
         title: '加载中'
       })
 
-      await wx.cloud.callFunction({
+      const stateRes = await wx.cloud.callFunction({
         name: 'changeOrderState',
         data: {
           orderID: id,
@@ -754,6 +756,10 @@ Page({
       })
 
       wx.hideLoading()
+      if (!stateRes.result.success) {
+        wx.showToast({ title: stateRes.result.errMsg || '操作失败', icon: 'none' })
+        return
+      }
       
       // 重新加载待完成列表
       this.loadConfirmedOrders()

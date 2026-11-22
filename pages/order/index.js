@@ -236,13 +236,18 @@ Page({
       })
 
       const good = await db.collection('goods').doc(order.goodID).get()
-      await wx.cloud.callFunction({
+      const stateRes = await wx.cloud.callFunction({
         name: 'changeOrderState',
         data: {
           orderID: id,
           status: 'cancelled'
         }
       })
+      if (!stateRes.result.success) {
+        wx.hideLoading()
+        wx.showToast({ title: stateRes.result.errMsg || '操作失败', icon: 'none' })
+        return
+      }
       await wx.cloud.callFunction({
         name: 'sendOrderState',
         data: {

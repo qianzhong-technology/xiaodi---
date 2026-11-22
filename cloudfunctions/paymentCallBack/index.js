@@ -79,12 +79,16 @@ exports.main = async (event) => {
   const outTradeNo = parsed.out_trade_no
   const transactionId = parsed.transaction_id
   const totalFee = parseInt(parsed.total_fee,10)
-  const orderIds = JSON.parse(parsed.attach)
+  let orderIds
+  try { orderIds = JSON.parse(parsed.attach) }
+  catch (e) { return failXml('attach') }
+  if (!Array.isArray(orderIds) || !orderIds.length ||
+      orderIds.some(id => typeof id !== 'string' || !id)) return failXml('attach')
   console.log(outTradeNo, transactionId, totalFee, orderIds)
 
   try {
     for (const oid of orderIds){
-      await db.collection('orders').doc(oid).update({
+      const updated = await db.collection('orders').where({ _id: oid, status: 'unpaid', isPay: false }).update({
         data: {
           isPay: true,
           payTime: db.serverDate(),
@@ -92,9 +96,17 @@ exports.main = async (event) => {
           status: 'pending'
         }
       })
+      if (!updated.stats || updated.stats.updated !== 1) {
+        const order = (await db.collection('orders').doc(oid).get()).data
+        if (!order || order.isPay !== true || order.transactionId !== transactionId) {
+          console.error('支付订单需要人工对账', outTradeNo, transactionId, oid)
+          return failXml('reconcile')
+        }
+      }
     }
   } catch(e){
     console.error('改单失败', e)
+    return failXml('update')
   }
 
   return okXml()

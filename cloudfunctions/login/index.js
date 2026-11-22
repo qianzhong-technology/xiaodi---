@@ -4,6 +4,8 @@ cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV }) // 使用当前云环境
 const db = cloud.database()
 
 exports.main = async (event, context) => {
+  const { OPENID } = cloud.getWXContext()
+  if (!OPENID) return { success: false, message: '未认证用户' }
   const status = event.status;
   if (status === 'user') {
     const {
@@ -28,7 +30,7 @@ exports.main = async (event, context) => {
     }
   
     const user = res.data[0]
-    if (user.password !== password) {
+    if (user.openid !== OPENID || user.password !== password) {
       return {
         success: false,
         message: '密码错误'
@@ -75,7 +77,7 @@ exports.main = async (event, context) => {
     }
   
     const partner = res.data[0]
-    if (partner.password !== password) {
+    if (partner.openid !== OPENID || partner.password !== password) {
       return {
         success: false,
         message: '密码错误'
